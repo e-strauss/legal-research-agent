@@ -122,8 +122,8 @@ class OllamaResearchAgent:
         results = static_filter(results)
 
         # optional LLM-assisted filtering
-        if self.use_llm_filter and self.agent:
-            results = self.llm_relevance_check(query, results, self.agent)
+        if self.use_llm_filter:
+            results = self.llm_relevance_check(query, results)
 
         # Debug preview
         preview = [
