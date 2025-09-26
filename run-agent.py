@@ -5,7 +5,7 @@ if __name__ == "__main__":
     if len(sys.argv) < 2:
         print("Wrong number of arguments")
 
-    agent = OllamaResearchAgent() if sys.argv[1] == "BASE" else SimpleOllamaResearchAgent()
+    agent = OllamaResearchAgent(use_llm_filter=True) if sys.argv[1] == "BASE" else SimpleOllamaResearchAgent()
     print("Using agent:", agent)
 
     user_request = """

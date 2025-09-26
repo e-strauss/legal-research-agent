@@ -154,6 +154,7 @@ class OllamaResearchAgent:
     Answer with YES or NO only.
     """
             resp = self.chat([{"role": "system", "content": prompt}])
+            print(f"[Agent] Filtering search results [{r.get("title")}]")
             decision = resp.get("message", {}).get("content", "").strip().upper()
             if decision.startswith("YES"):
                 kept.append(r)
