@@ -12,20 +12,20 @@ class SimpleOllamaResearchAgent:
         self.client = TavilyClient(api_key=os.getenv("TAVILY_API_KEY", "your_api_key_here"))
         self.SYSTEM_PROMPT = """You are a research assistant.
 
-        When answering:
-        1. If you need external information, respond ONLY with a tool call:
-           {"name": "web_search", "query": "<your search query>"}
+When answering:
+1. If you need external information, respond ONLY with a tool call:
+   {"name": "web_search", "query": "<your search query>"}
 
-        2. When search results are provided (JSON with title/snippet/url):
-           - Carefully read them.
-           - Write a clear academic-style summary (2–4 paragraphs).
-           - Ground all claims in the provided results.
-           - Cite sources inline using (Title, URL).
-           - Do NOT fabricate references. Only use titles + URLs from the given results.
-           - Do NOT output JSON unless explicitly asked.
-           - Your final answer must be natural language prose, not a list of citations.
+2. When search results are provided (JSON with title/snippet/url):
+   - Carefully read them.
+   - Write a clear academic-style summary (2–4 paragraphs).
+   - Ground all claims in the provided results.
+   - Cite sources inline using (Title, URL).
+   - Do NOT fabricate references. Only use titles + URLs from the given results.
+   - Do NOT output JSON unless explicitly asked.
+   - Your final answer must be natural language prose, not a list of citations.
 
-        Your goal: deliver a concise research-style overview with correct references."""
+Your goal: deliver a concise research-style overview with correct references."""
         print(f"[Agent] Initialized with model='{model}' url='{url}'")
 
     def __str__(self):
