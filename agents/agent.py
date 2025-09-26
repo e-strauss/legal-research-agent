@@ -27,10 +27,11 @@ def static_filter(results: List[Dict[str, str]]) -> List[Dict[str, str]]:
 
 
 class OllamaResearchAgent:
-    def __init__(self, model="gpt-oss:20b", url="http://10.0.139.104:11434/api/chat"):
+    def __init__(self, model="gpt-oss:20b", url="http://10.0.139.104:11434/api/chat", use_llm_filter=False):
         self.client = TavilyClient(api_key=os.getenv("TAVILY_API_KEY", "your_api_key_here"))
         self.model = model
         self.url = url
+        self.use_llm_filter = use_llm_filter
         self.SYSTEM_PROMPT = f"""You are a research assistant.
         The current date is: {datetime.now().strftime("%d.%m.%Y")}.
 
@@ -71,7 +72,7 @@ class OllamaResearchAgent:
         print("[Agent] Response received from Ollama")
         return resp.json()
 
-    def ask(self, question: str, use_llm_filter=False) -> str:
+    def ask(self, question: str) -> str:
         print(f"[Agent] New question: {question.strip()}")
         messages = [
             {"role": "system", "content": self.SYSTEM_PROMPT},
@@ -92,7 +93,7 @@ class OllamaResearchAgent:
                 if func == "web_search":
                     query = args.get("query")
                     print(f"[Agent] → Detected web_search request: {query}")
-                    results = self.web_search(query, agent=self, use_llm_filter=use_llm_filter)
+                    results = self.web_search(query)
 
                     messages.append({"role": "assistant", "content": f"[tool_call: websearch] {query}"})
                     messages.append({"role": "tool", "content": json.dumps(results, indent=2)})
@@ -106,7 +107,7 @@ class OllamaResearchAgent:
             print("[Agent] No usable output, returning raw response.")
             return str(response)
 
-    def web_search(self, query: str, max_results: int = 8, agent=None, use_llm_filter=False) -> List[Dict[str, str]]:
+    def web_search(self, query: str, max_results: int = 8) -> List[Dict[str, str]]:
         resp = self.client.search(query, max_results=max_results, include_raw_content=True)
         results = [
             {
@@ -121,8 +122,8 @@ class OllamaResearchAgent:
         results = static_filter(results)
 
         # optional LLM-assisted filtering
-        if use_llm_filter and agent:
-            results = self.llm_relevance_check(query, results, agent)
+        if self.use_llm_filter and self.agent:
+            results = self.llm_relevance_check(query, results, self.agent)
 
         # Debug preview
         preview = [
