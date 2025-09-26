@@ -28,6 +28,10 @@ class SimpleOllamaResearchAgent:
         Your goal: deliver a concise research-style overview with correct references."""
         print(f"[Agent] Initialized with model='{model}' url='{url}'")
 
+    def __str__(self):
+        return "SimpleOllamaResearchAgent"
+
+
     def chat(self, messages: List[Dict]) -> dict:
         """
         Send messages to Ollama and return the raw JSON response.

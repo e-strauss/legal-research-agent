@@ -6,6 +6,7 @@ if __name__ == "__main__":
         print("Wrong number of arguments")
 
     agent = OllamaResearchAgent() if sys.argv[1] == "BASE" else SimpleOllamaResearchAgent()
+    print("Using agent:", agent)
 
     user_request = """
     Summarize the latest breakthroughs in quantum error correction

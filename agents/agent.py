@@ -52,6 +52,9 @@ class OllamaResearchAgent:
         """
         print(f"[Agent] Initialized with model='{model}' url='{url}'")
 
+    def __str__(self):
+        return "OllamaResearchAgent"
+
     def chat(self, messages: List[Dict]) -> dict:
         print(f"[Agent] Sending {len(messages)} messages to Ollama...")
         resp = requests.post(
