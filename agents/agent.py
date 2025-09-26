@@ -62,17 +62,19 @@ Your goal: deliver a concise research-style overview with correct references.
     def __str__(self):
         return "OllamaResearchAgent"
 
-    def chat(self, messages: List[Dict]) -> dict:
+    def chat(self, messages: List[Dict], reasoning="low") -> dict:
         print(f"[Agent] Sending {len(messages)} messages to Ollama...")
+        config = {
+            "model": self.model,
+            "messages": messages,
+            "temperature": 0.3,
+            "stream": False,
+            "reasoning_effort": reasoning,
+        }
         resp = requests.post(
             self.url,
             headers={"Content-Type": "application/json"},
-            json={
-                "model": self.model,
-                "messages": messages,
-                "temperature": 0.3,
-                "stream": False,
-            },
+            json=config,
         )
         resp.raise_for_status()
         print("[Agent] Response received from Ollama")
@@ -87,7 +89,7 @@ Your goal: deliver a concise research-style overview with correct references.
 
         while True:
             print("[Agent] Sending messages to LLM...")
-            response = self.chat(messages)
+            response = self.chat(messages, reasoning="high")
             print("DEBUG", json.dumps(response, indent=2, sort_keys=True))
             msg = response["message"]
 
