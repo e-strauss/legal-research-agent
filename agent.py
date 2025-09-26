@@ -12,6 +12,23 @@ client = TavilyClient(api_key=TAVILY_API_KEY)
 OLLAMA_URL = "http://10.0.139.104:11434/api/chat"
 OLLAMA_MODEL = "gpt-oss:20b"
 
+SYSTEM_PROMPT = """You are a research assistant.
+
+When answering:
+1. If you need external information, respond ONLY with a tool call:
+   {"name": "web_search", "query": "<your search query>"}
+
+2. When search results are provided (JSON with title/snippet/url):
+   - Carefully read them.
+   - Write a clear academic-style summary (2–4 paragraphs).
+   - Ground all claims in the provided results.
+   - Cite sources inline using (Title, URL).
+   - Do NOT fabricate references. Only use titles + URLs from the given results.
+   - Do NOT output JSON unless explicitly asked.
+   - Your final answer must be natural language prose, not a list of citations.
+
+Your goal: deliver a concise research-style overview with correct references."""
+
 
 # ---------------- TOOL: Web Search ----------------
 def web_search(query: str, max_results: int = 5) -> List[Dict[str, str]]:
@@ -52,7 +69,7 @@ class OllamaResearchAgent:
             json={
                 "model": self.model,
                 "messages": messages,
-                "temperature": 0.7,
+                "temperature": 0.3,
                 "stream": False,
             },
         )
@@ -63,17 +80,7 @@ class OllamaResearchAgent:
     def ask(self, question: str) -> str:
         print(f"[Agent] New question: {question.strip()}")
         messages = [
-            {"role": "system", "content":
-                """You are a research assistant.
-If you need external information, respond ONLY with in tool_calls:
-  {"name": "web_search", "query": "<your search query>"}
-
-When search results are provided (JSON with title/snippet/url), read them carefully.
-- Summarize the key findings.
-- Filter out irrelevant or off-topic results.
-- Provide references (use titles + URLs).
-- Write in clear academic style."""
-             },
+            {"role": "system", "content": SYSTEM_PROMPT},
             {"role": "user", "content": question}
         ]
 
