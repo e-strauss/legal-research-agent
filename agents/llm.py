@@ -43,14 +43,14 @@ def _query_openai(messages: List[Dict], model: str, tools: List[Dict] = None) ->
 
 
 
-def _query_ollama(messages: List[Dict], model: str, reasoning: str, tools: List[Dict] = None) -> Dict:
+def _query_ollama(messages: List[Dict], model: str, reasoning: str, tools: List[Dict] = None, thinking=False) -> Dict:
     """Call a local Ollama instance."""
     resp = chat(
         model=model,
         messages=messages,
         stream=False,
         tools=tools,
-        think=True,
+        think=thinking,
         options={"temperature": 0.4}
     )
 
@@ -64,12 +64,12 @@ class LLMClient:
     def __init__(self, default_model: str = "gpt-oss:20b"):
         self.default_model = default_model
 
-    def query(self, messages: List[Dict], model: str = None, reasoning: str = "low", tools: List[Dict] = None) -> (Dict, List):
+    def query(self, messages: List[Dict], model: str = None, thinking=False, reasoning: str = "low", tools: List[Dict] = None) -> (Dict, List):
         """Dispatch query to the correct LLM backend based on model name."""
         model = model or self.default_model
 
         if model.startswith("gpt-oss") or "ollama" in model.lower():
-            return _query_ollama(messages, model, reasoning, tools)
+            return _query_ollama(messages, model, reasoning, tools, thinking=thinking)
         elif model.startswith("gpt-") or "openai" in model.lower():
             return _query_openai(messages, model, tools)
         else:

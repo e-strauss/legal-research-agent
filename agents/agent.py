@@ -78,10 +78,10 @@ class ResearchAgent:
     def __str__(self):
         return "ResearchAgent"
 
-    def chat(self, messages: List[Dict], reasoning="low", tools=None) -> dict:
+    def chat(self, messages: List[Dict], reasoning="low", tools=None, thinking=False) -> dict:
         """Route chat messages to the LLM client."""
         print(f"[Agent] Sending {len(messages)} messages to model '{self.model}'")
-        return self.llm.query(messages, model=self.model, reasoning=reasoning, tools=tools)
+        return self.llm.query(messages, model=self.model, reasoning=reasoning, tools=tools, thinking=thinking)
 
     def ask(self, question: str) -> str:
         print(f"[Agent] New question: {question.strip()}")
@@ -91,7 +91,7 @@ class ResearchAgent:
         ]
 
         while True:
-            response, messages = self.chat(messages, reasoning="high", tools=self.tools)
+            response, messages = self.chat(messages, reasoning="high", tools=self.tools, thinking=True)
             msg = response["message"]
 
             if msg.thinking:
