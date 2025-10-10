@@ -98,10 +98,10 @@ class ResearchAgent:
             response, messages = self.chat(messages, reasoning="high", tools=self.tools, thinking=True)
             msg = response["message"]
 
-            if msg.thinking:
-                print('[Agent] Thinking: ', response.message.thinking)
-            if msg.content:
-                print('[Agent] Content: ', response.message.content)
+            if "thinking" in msg:
+                print('[Agent] Thinking: ', msg["thinking"])
+            if "content" in msg:
+                print('[Agent] Content: ', msg["content"])
 
             if "tool_calls" in msg and msg["tool_calls"]:
                 for tool_call in msg["tool_calls"]:
@@ -111,8 +111,9 @@ class ResearchAgent:
 
                     if func == "web_search":
                         query = args.get("query")
+                        query_goal = args.get("query_goal")
                         print(f"[Agent] → Detected web_search request: {query}")
-                        results = json.dumps(self.web_search(query), indent=2)
+                        results = json.dumps(self.web_search(query, query_goal), indent=2)
                         print(f"[Agent] WebSearch results: {results}")
 
                         messages.append({
