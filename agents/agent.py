@@ -131,9 +131,9 @@ class ResearchAgent:
         kept = []
         for r in results:
             prompt = (
-                "You are evaluating a search result for relevance.\n\n"
+                "You are evaluating a web search result and should decide if this result is relevant to answering the question\n\n"
                 f"Question: {question}\n\n"
-                "Result:\n"
+                "Web search result:\n"
                 f"Title: {r.get('title')}\n"
                 f"URL: {r.get('url')}\n"
                 f"Snippet: {r.get('raw_content')[:300]}\n\n"
@@ -144,5 +144,12 @@ class ResearchAgent:
             resp, _ = self.chat([{"role": "system", "content": prompt}])
             decision = resp.get("message", {}).get("content", "").strip().upper()
             if decision.startswith("YES"):
+                prompt = (f"You are processing a web search result. For the given user "
+                          f"question: {question}\n"
+                          "Write a short summary for the following search result in context of the given question. "
+                          "Answer directly with the summary, do not leave out key points."
+                          f"This is the search result: \n{r.get('raw_content')}")
+                resp, _ = self.chat([{"role": "system", "content": prompt}])
+                r["raw_content"] = resp["message"]["content"]
                 kept.append(r)
         return kept
