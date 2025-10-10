@@ -1,12 +1,8 @@
-
 import json
 import openai
-import requests
-import os
+from ollama import chat
 
 from typing import List, Dict
-
-ollama_url = os.getenv("OLLAMA_URL", "http://10.0.139.104:11434/api/chat")
 
 
 def _query_openai(messages: List[Dict], model: str, tools: List[Dict] = None) -> (Dict, List):
@@ -49,23 +45,17 @@ def _query_openai(messages: List[Dict], model: str, tools: List[Dict] = None) ->
 
 def _query_ollama(messages: List[Dict], model: str, reasoning: str, tools: List[Dict] = None) -> Dict:
     """Call a local Ollama instance."""
-    payload = {
-        "model": model,
-        "messages": messages,
-        "temperature": 0.3,
-        "stream": False,
-        "reasoning_effort": reasoning,
-    }
-
-    resp = requests.post(
-        ollama_url,
-        headers={"Content-Type": "application/json"},
-        json=payload,
-        timeout=180,
+    resp = chat(
+        model=model,
+        messages=messages,
+        temperature=0.3,
+        stream=False,
+        tools=tools,
+        think=True
     )
-    resp.raise_for_status()
-    messages.append(resp.json()["message"])
-    return resp.json(), messages
+
+    messages.append(resp.message)
+    return resp, messages
 
 
 class LLMClient:
