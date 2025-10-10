@@ -74,6 +74,9 @@ class ResearchAgent:
 
         print(f"[Agent] Initialized with model='{model}'")
 
+    def __str__(self):
+        return "ResearchAgent"
+
     def chat(self, messages: List[Dict], reasoning="low", tools=None) -> dict:
         """Route chat messages to the LLM client."""
         print(f"[Agent] Sending {len(messages)} messages to model '{self.model}'")

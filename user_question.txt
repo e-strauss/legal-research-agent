@@ -1,0 +1,59 @@
+Hallo, ich bin Rechtsanwältin und habe ein folgendes Thema. Meine Mandantin ist eine Baufirma und die hat ein Fußballstadion mit Büros in Freiburg geplant und errichtet. Es wurde mit dem Auftraggeber ein sogenannter Totalunternehmervertrag geschlossen. Hiernach hat mein Mandant Planungs-und Bauleistungen zu erbringen. Die Leistungen wurden mit Wirkung zum 23.07.2021 abgenommen. Nun ist es so, dass nach Abnahme der Leistungen der Auftraggeber am 2. Februar 2022 Mängel zum pfeifenden Dach gerügt hat als Schallemissionen in Form von Pfeifgeräuschen bei bestimmten seltenen Wetterlagen im Stadion . Diesen Mangel hat meine Mandantin nicht anerkannt und es ist auch sehr schwer, diesen zu lokalisieren. Ich würde hierzu die Mangelanzeige vom 2. Februar 2022 beifügen. Nun hat es weitere Untersuchungen gegeben. Auf Grundlage dieser Untersuchungen hat meine Mandantin Verbesserungsmaßnahmen durchgeführt: durch Anbringung von unterseitigen Abdeckungen der Stoßfugen der Trapezbleche an den Stadionecken gemäß E-Mail des AN vom 01.12.2023 sowie durch Schließung der Öffnungen zwischen den Hochsicken des Trapezbleches und dem Stahlträger an beiden Regenrinnen an der Stadionecke Nord-West und der Notüberläufe gemäß den Verbesserungsempfehlungen der rw bauphysik ingenieurgesellschaft mbH & Co. KG vom 25.11.2024 , um Schallemissionen (Mangelrüge „pfeifendes Dach“) bei bestimmten Windlagen zu reduzieren. Aktuell hat der Auftraggeber bei Windereignissen am 1. April 2025 wieder Pfeifgeräusche gemessen und die Mangelanzeige erweitert, nun am 7.04.2025 auf das gesamte Stadion erweitert. Hierzu hat er wie folgt beschrieben: "Erneutes Auftreten von Pfeifgeräuschen am 01.04.2025. Die Geräusche sollen in diesem Fall an der Ostseite entstehen , aufgrund Abweichung der Windrichtung zur normalerweise vorherrschenden Windrichtung. Dies sei Bestätigung, dass es sich um einen systematischen Mangel am gesamten Dach handelt." Aus Sicht unserer Mandantin ist das Geräusch viel geringer, und die Verbesserungsmaßnahmen haben auch eine Verbesserung gezeigt. Gibt es irgendeine öffentlich-rechtliche Vorschrift oder anerkannte Regel der Technik, wonach Fassaden oder Bauwerke bei seltenen Wetterlagen wie den hier starken Winterereignissen keine Geräusche von sich geben dürfen? Gibt es Grenzen für Schallpegel hierzu? Wir haben diesen Mangelpunkt auch durch unsere Partneranwälte prüfen lassen. Hierzu habe ich die rechtliche Stellungnahme eingefügt. Hierzu bitte ich um die ergänzende Beantwortung folgender Fragen. Was ist der durchschnittliche Stadion-Innenraumpegel bei Fußballveranstaltungen? Was ist die strengste Voraussetzung der technischen Regeln für Arbeitsstätten? Lärm für die Nutzung der Büros? Gibt es eine Vorschrift, der zufolge von der Fassade keine Windgeräusche ausgehen dürfen, beziehungsweise gibt es eine Vorschrift, wonach Begrenzungen von Windgeräuschen vorgegeben sind? Ich möchte gern auf die erweiterte Mangelrüge reagieren, bitte bereite mir eine juristisch fundiertes Schreiben vor. Bitte berücksichtige hierbei auch die Ausführungen des Dipl.-Ing. Arch. Herget aus seiner Stellungnahme vom 23.02.2024: "Sehr geehrter Herr Bange,
+
+nach Durchsicht Ihrer Anfrage möchten wir Ihnen eine kurze Antwort geben.
+
+Vielen Dank für die Zusendung des Audiofiles. Dies ist sehr eindeutig und es ist sofort erkennbar das die Geräusche als sehr lästig einzuordnen sind.
+
+Vorab eine kurze Analyse der Audiospur:
+
+Habe versucht aus Ihrem Video die entsprechenden Frequenzen heraus zu filtern:
+
+1.          Pegelspitze: 2265 Hz -> ca. 35 dB Pegelerhöhung zum „normalen“ Geräusch/Rauschen
+
+2.          Pegelspitze: 3387 Hz -> ca. 30 dB Pegelerhöhung zum „normalen“ Geräusch/Rauschen
+
+3.          Pegelspitze: 4521 Hz -> ca. 10 dB Pegelerhöhung zum „normalen“ Geräusch/Rauschen
+
+4.          Pegelspitze: 6775 Hz -> ca. 15 dB Pegelerhöhung zum „normalen“ Geräusch/Rauschen
+
+Wobei die 3. und 4. Pegelspitze wahrscheinliche harmonische Folgeerscheinungen zur jeweils 1. und 2. Pegelspitze sind.
+
+Somit sind die beiden Frequenzen 2265 Hz und 3387 Hz die entscheidenden für die Pegelerzeugung.
+
+Wenn man es nun schafft diese beiden Quellen der Frequenzen zu beseitigen, dann dürften auch die harmonischen Folgeerscheinungen nicht mehr zum Tragen kommen.
+
+Falls Ihre beschriebene Verbesserungsmaßnahme den erwünschten Erfolg bringt, dann sind Sie ein großes Stück weiter.
+
+Prinzipiell können wir Ausschnitte von kritischen Fassadenbereichen in unseren Windkanal einbauen und genau solche Tests durchlaufen. Wir untersuchen die Prüfkörper auf deren Strömungsverhalten und wenn sich solch kritische tonalen Eigenschaften einstellen, versuchen wir die Quellen zu lokalisieren und Verbesserungsmaßnahmen vorzuschlagen.
+
+Anbei finden Sie eine Veröffentlichung von uns, wie so eine Untersuchung im Windkanal abläuft.
+
+Der erste Schritt, welche Bereich der Fassade die tonalen Geräusche erzeugt, ist mit der schwierigste. Da haben Sie ja dank der Schallpistole ja schon erste gute Erkenntnisse.
+
+Bei Bedarf könnte man von diesem Bereich einen Ausschnitt auswählen den wir in unserem Windkanal untersuchen (kein Modellmaßstab, sondern 1:1 Ausschnitt aus der Fassade mit dem zu erwartenden kritischen Bereich).
+
+Unter Laborbedingungen ist es natürlich viel einfacher mögliche Optimierungsmaßnahmen auszuprobieren und auf deren reale Umsetzung hin zu testen.
+
+Gerne können wir Ihnen hier weitere Unterstützung anbieten.
+
+Zu Ihrer weiteren Frage, bezüglich wie laut ein Gebäude sein darf, ist die TA Lärm die entscheidende Quelle.
+
+Wobei es hier maßgeblich um Immissionsorte geht. Diese Orte können im Stadion natürlich die Sitzplätze der Zuschauer sein, falls es da während eines Spiels zu Belästigungen kommt. Oder Orte an denen Menschen regelmäßig im Stadion arbeiten und diese Geräusche an diesen Orten zu Belästigungen führen. Weitere Immissionsorte sind benachbarte Gebäude, eventuell sogar Wohngebäude. Bei Wohngebäuden unterliegen die einzuhaltenden Grenzwerte die höchsten Ansprüche.
+
+Hier ein Auszug aus der TA Lärm:
+
+Diese Werte müssen eingehalten werden, wobei es auch Ausnahmen gibt. Wobei diese sehr begrenzt sind auf 10 Tage in einem Kalenderjahr und an 2 Wochenenden in Folge.
+
+Durch Ihre Beschreibung das es durch die Windrichtung SW auftritt und dies vermutlich eine Hauptwindrichtung in Freiburg ist werden es wahrscheinlich mehr als 10 Tage im Kalenderjahr sein an denen es zu dieser Geräuschentstehung kommen wird.
+
+Für Tests in unserem Windkanal ist der Einbau im geschlossenen Windkanal zu bevorzugen, Aufgrund der von Ihnen genannten Windgeschwindigkeiten von > 15m/s. Die maximale Windgeschwindigkeit im leeren Windkanal beträgt 70m/s, wobei wir diese mit eingebauten Prüfling nicht erreichen werden, da dieser ja selber einen Druckverlust generiert. Die maximal mögliche Windgeschwindigkeit wäre dann zu testen, aber ich vermute das wir die Töne aus Ihrem Audiofile auf alle Fälle auch in unserem Windkanal mit dem richtigen Fassadenausschnitt zur „Entfaltung“ bringen können.
+
+
+
+Gerne können wir Ihnen bspw. ein Angebot erstellen für derartige Untersuchungen im Windkanal mit Quellortung und möglichen Verbesserungsmaßnahmen.
+
+Für einen weiteren Austausch stehen wir Ihnen gerne zur Verfügung.
+
+Mit freundlichen Grüßen
+
+Wolfgang Herget
