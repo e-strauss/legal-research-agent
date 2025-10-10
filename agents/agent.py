@@ -94,6 +94,11 @@ class ResearchAgent:
             response, messages = self.chat(messages, reasoning="high", tools=self.tools)
             msg = response["message"]
 
+            if msg.thinking:
+                print('[Agent] Thinking: ', response.message.thinking)
+            if msg.content:
+                print('[Agent] Content: ', response.message.content)
+
             if "tool_calls" in msg and msg["tool_calls"]:
                 for tool_call in msg["tool_calls"]:
                     func = tool_call["function"]["name"]
