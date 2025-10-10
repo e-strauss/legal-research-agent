@@ -48,10 +48,10 @@ def _query_ollama(messages: List[Dict], model: str, reasoning: str, tools: List[
     resp = chat(
         model=model,
         messages=messages,
-        temperature=0.3,
         stream=False,
         tools=tools,
-        think=True
+        think=True,
+        options={"temperature": 0.4}
     )
 
     messages.append(resp.message)
