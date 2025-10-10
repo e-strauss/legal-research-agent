@@ -149,7 +149,12 @@ class ResearchAgent:
                           "Write a short summary for the following search result in context of the given question. "
                           "Answer directly with the summary, do not leave out key points."
                           f"This is the search result: \n{r.get('raw_content')}")
+                old_length = len(r.get('raw_content'))
+                print(f"[WebSearch] Writing summary for result of length: {old_length}")
                 resp, _ = self.chat([{"role": "system", "content": prompt}])
-                r["raw_content"] = resp["message"]["content"]
+                summary = resp["message"]["content"]
+                new_length = len(summary)
+                print(f"[WebSearch] Summary length: {new_length} [Reduction: {old_length // new_length}x]")
+                r["raw_content"] = summary
                 kept.append(r)
         return kept

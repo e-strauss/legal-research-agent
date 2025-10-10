@@ -61,7 +61,7 @@ def _query_ollama(messages: List[Dict], model: str, reasoning: str, tools: List[
         ollama_url,
         headers={"Content-Type": "application/json"},
         json=payload,
-        timeout=120,
+        timeout=180,
     )
     resp.raise_for_status()
     messages.append(resp.json()["message"])
