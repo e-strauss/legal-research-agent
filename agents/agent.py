@@ -40,6 +40,7 @@ class ResearchAgent:
             f"When answering:\n"
             f"1. If you need external information, call the tool named `web_search` "
             f"with a single argument `query` describing what to search for. "
+            f"You can do multiple rounds of searching, but keep in mind that you should also come to an answer at some point."
             f"Do not invent data or answer without the search if you’re unsure.\n\n"
             f"2. When search results are provided:\n"
             f"   - Summarize in 2–4 paragraphs.\n"
