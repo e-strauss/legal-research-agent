@@ -11,10 +11,7 @@ if __name__ == "__main__":
     agent = ResearchAgent(use_llm_filter=True, model=sys.argv[2]) if sys.argv[1] == "BASE" else SimpleOllamaResearchAgent()
     print("Using agent:", agent)
 
-    user_request = """
-    Summarize the latest breakthroughs in quantum error correction
-    and superconducting qubits research. Provide references if possible.
-    """
+    user_request = """Wie ist die aktuelle Lage im Israel-Palestina-Konflikt?"""
 
     print("[Main] Asking agent...")
     answer = agent.ask(user_request)
