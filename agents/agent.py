@@ -35,19 +35,18 @@ class ResearchAgent:
         self.client = TavilyClient(api_key=os.getenv("TAVILY_API_KEY", "your_api_key_here"))
 
         self.SYSTEM_PROMPT = (
-            f"You are a research assistant.\n"
-            f"The current date is: {datetime.now().strftime('%d.%m.%Y')}.\n\n"
-            f"When answering:\n"
-            f"1. If you need external information, call the tool named `web_search` "
-            f"with a single argument `query` describing what to search for. "
-            f"You can do multiple rounds of searching, but keep in mind that you should also come to an answer at some point."
-            f"Do not invent data or answer without the search if you’re unsure.\n\n"
-            f"2. When search results are provided:\n"
-            f"   - Summarize in 2–4 paragraphs.\n"
-            f"   - Cite sources inline as (Title, URL).\n"
-            f"   - Do not fabricate references.\n"
-            f"   - Return natural language prose, not JSON.\n\n"
-            f"Your goal: deliver a concise, referenced research summary."
+            "Du bist ein juristischer Rechercheassistent."
+            f"Heutiges Datum:{datetime.now().strftime('%d.%m.%Y')}\n"
+            f"Beantworte juristische Fragen präzise, faktenbasiert und mit Quellenangaben."
+            f"Wenn Informationen fehlen oder aktualisiert werden müssen, nutze das Tool web_search, "
+            f"um gezielt nach Gesetzen, Urteilen, Kommentaren, Nachrichtenartikeln oder anderen "
+            f"relevanten Informationen zu suchen."
+            f"Du darfst mehrere Rechercheschritte durchführen, um Ergebnisse zu verfeinern oder zu ergänzen.\n"
+            f"Verarbeite die bereitgestellten Suchzusammenfassungen aktiv in deiner Antwort.\n"
+            f"Zitiere Quellen inline in der Form (Titel, URL), erfinde keine.\n"
+            f"Formuliere klar, juristisch korrekt und strukturiert\n"
+            f"Antworte in natürlicher Sprache, nicht in JSON.\n"
+            f"Ziel: Eine prägnante, quellenbasierte juristische Einschätzung."
         )
 
         self.tools = [
@@ -66,8 +65,13 @@ class ResearchAgent:
                                 "type": "string",
                                 "description": "The search query or question to look up on the web."
                             },
+                            "query_goal": {
+                                "type": "string",
+                                "description": ("Short description of what the goal of this web search is. This goal"
+                                                "is subsequently used to evaluate each search result")
+                            }
                         },
-                        "required": ["query"],
+                        "required": ["query","query_goal"],
                     },
                 },
             }
@@ -123,7 +127,7 @@ class ResearchAgent:
                 return content
             return str(response)
 
-    def web_search(self, query: str, max_results: int = 8) -> List[Dict[str, str]]:
+    def web_search(self, query: str, query_goal: str, max_results: int = 8) -> List[Dict[str, str]]:
         resp = self.client.search(query, max_results=max_results, include_raw_content=True)
         results = [
             {"title": r.get("title", ""), "url": r.get("url", ""), "raw_content": r.get("raw_content", "")}
@@ -132,7 +136,7 @@ class ResearchAgent:
 
         results = static_filter(results)
         if self.use_llm_filter:
-            results = self.llm_relevance_check(query, results)
+            results = self.llm_relevance_check(query_goal, results)
 
         return results
 
@@ -155,7 +159,7 @@ class ResearchAgent:
             if decision.startswith("YES"):
                 prompt = (f"You are processing a web search result. For the given user "
                           f"question: {question}\n"
-                          "Write a short summary for the following search result in context of the given question. "
+                          "Write a short summary for the following search result in context of the given question."
                           "Answer directly with the summary, do not leave out key points."
                           f"This is the search result: \n{r.get('raw_content')}")
                 old_length = len(r.get('raw_content'))
