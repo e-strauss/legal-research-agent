@@ -99,12 +99,13 @@ class ResearchAgent:
                     if func == "web_search":
                         query = args.get("query")
                         print(f"[Agent] → Detected web_search request: {query}")
-                        results = self.web_search(query)
+                        results = json.dumps(self.web_search(query), indent=2)
+                        print(f"[Agent] WebSearch results: {results}")
 
                         messages.append({
                             "role": "tool",
                             "tool_call_id": tool_id,
-                            "content": json.dumps(results, indent=2)
+                            "content": results,
                         })
                 continue
 

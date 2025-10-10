@@ -73,7 +73,6 @@ class LLMClient:
 
     def __init__(self, default_model: str = "gpt-oss:20b"):
         self.default_model = default_model
-        openai.api_key = os.getenv("OPENAI_API_KEY")
 
     def query(self, messages: List[Dict], model: str = None, reasoning: str = "low", tools: List[Dict] = None) -> (Dict, List):
         """Dispatch query to the correct LLM backend based on model name."""
