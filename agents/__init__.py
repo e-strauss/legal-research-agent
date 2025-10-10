@@ -1,7 +1,7 @@
-from .agent import OllamaResearchAgent
+from .agent import ResearchAgent
 from .simple_agent import SimpleOllamaResearchAgent
 
 __all__ = [
-    "OllamaResearchAgent",
+    "ResearchAgent",
     "SimpleOllamaResearchAgent",
 ]

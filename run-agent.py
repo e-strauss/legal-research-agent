@@ -1,11 +1,14 @@
-from agents import SimpleOllamaResearchAgent, OllamaResearchAgent
+from agents import SimpleOllamaResearchAgent, ResearchAgent
 import sys
+from dotenv import load_dotenv
+
+load_dotenv(override=True)
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:
         print("Wrong number of arguments")
 
-    agent = OllamaResearchAgent(use_llm_filter=True) if sys.argv[1] == "BASE" else SimpleOllamaResearchAgent()
+    agent = ResearchAgent(use_llm_filter=True, model="gpt-4.1") if sys.argv[1] == "BASE" else SimpleOllamaResearchAgent()
     print("Using agent:", agent)
 
     user_request = """
