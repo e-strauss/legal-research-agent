@@ -179,7 +179,7 @@ class ResearchAgent:
                           f"This is the search result: \n{raw_content}")
                 old_length = len(raw_content)
                 print(f"[WebSearch] Writing summary for result of length: {old_length}")
-                resp, _ = self.chat([{"role": "system", "content": prompt}])
+                resp, _ = self.chat([{"role": "system", "content": prompt}], model=fast_model)
                 summary = resp["message"]["content"]
                 new_length = len(summary)
                 print(f"[WebSearch] Summary length: {new_length} [Reduction: {old_length // new_length}x]")
