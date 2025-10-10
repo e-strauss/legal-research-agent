@@ -10,7 +10,7 @@ def _query_openai(messages: List[Dict], model: str, tools: List[Dict] = None) ->
     response = openai.chat.completions.create(
         model=model,
         messages=messages,
-        temperature=0.3,
+        temperature=1 if model.startswith("gpt-5") else 0.3,
         tools=tools,
     )
 

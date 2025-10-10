@@ -6,6 +6,7 @@ from tavily import TavilyClient
 
 from .llm import LLMClient
 
+line = "----------------------------------------------------------------------------------------------"
 
 def static_filter(results: List[Dict[str, str]]) -> List[Dict[str, str]]:
     """Remove empty, duplicate, or obviously irrelevant results."""
@@ -82,10 +83,12 @@ class ResearchAgent:
     def __str__(self):
         return "ResearchAgent"
 
-    def chat(self, messages: List[Dict], reasoning="low", tools=None, thinking=False) -> dict:
+    def chat(self, messages: List[Dict], model=None, reasoning="low", tools=None, thinking=False) -> dict:
         """Route chat messages to the LLM client."""
-        print(f"[Agent] Sending {len(messages)} messages to model '{self.model}'")
-        return self.llm.query(messages, model=self.model, reasoning=reasoning, tools=tools, thinking=thinking)
+        if not model:
+            model = self.model
+        print(f"[Agent] Sending {len(messages)} messages to model '{model}'")
+        return self.llm.query(messages, model=model, reasoning=reasoning, tools=tools, thinking=thinking)
 
     def ask(self, question: str) -> str:
         print(f"[Agent] New question: {question.strip()}")
@@ -112,7 +115,7 @@ class ResearchAgent:
                     if func == "web_search":
                         query = args.get("query")
                         query_goal = args.get("query_goal")
-                        print(f"[Agent] → Detected web_search request: {query}")
+                        print(f"[Agent] → Detected web_search request: \n{query}\n{query_goal}")
                         results = json.dumps(self.web_search(query, query_goal), indent=2)
                         print(f"[Agent] WebSearch results: {results}")
 
@@ -121,6 +124,7 @@ class ResearchAgent:
                             "tool_call_id": tool_id,
                             "content": results,
                         })
+                print(line)
                 continue
 
             content = msg.get("content", "")
@@ -137,33 +141,43 @@ class ResearchAgent:
 
         results = static_filter(results)
         if self.use_llm_filter:
+            print(f"[WebSearch] Retrieved {len(results)} results. Beginning with semantic filtering.")
             results = self.llm_relevance_check(query_goal, results)
 
         return results
 
     def llm_relevance_check(self, question: str, results: List[Dict[str, str]]) -> List[Dict[str, str]]:
         kept = []
+        fast_model = "gpt-oss:20b" if self.model.startswith("gpt-oss") else "gpt-5-nano"
         for r in results:
+            raw_content = r.get("raw_content", "")
             prompt = (
                 "You are evaluating a web search result and should decide if this result is relevant to answering the question\n\n"
                 f"Question: {question}\n\n"
                 "Web search result:\n"
                 f"Title: {r.get('title')}\n"
                 f"URL: {r.get('url')}\n"
-                f"Snippet: {r.get('raw_content')[:300]}\n\n"
+                f"Snippet: {raw_content[:1000]}\n\n"
                 "Is this result relevant to answering the question?\n"
-                "Answer with YES or NO only."
+                "Your answer should start either with a YES or with a NO. Followed by a very short explanation."
             )
 
-            resp, _ = self.chat([{"role": "system", "content": prompt}])
+            resp, _ = self.chat([{"role": "system", "content": prompt}], model=fast_model, thinking=True)
+            if "thinking" in resp:
+                print(f"[WebSearch] Thinking: {resp['thinking']}")
             decision = resp.get("message", {}).get("content", "").strip().upper()
+            print(f"[WebSearch] Is [{r.get('title')[:20]}] relevant?: {decision}")
             if decision.startswith("YES"):
+
+                if len(raw_content) > 100000:
+                    print("[WebSearch] Content was truncated")
+                    raw_content = raw_content[:100000]
                 prompt = (f"You are processing a web search result. For the given user "
                           f"question: {question}\n"
                           "Write a short summary for the following search result in context of the given question."
                           "Answer directly with the summary, do not leave out key points."
-                          f"This is the search result: \n{r.get('raw_content')}")
-                old_length = len(r.get('raw_content'))
+                          f"This is the search result: \n{raw_content}")
+                old_length = len(raw_content)
                 print(f"[WebSearch] Writing summary for result of length: {old_length}")
                 resp, _ = self.chat([{"role": "system", "content": prompt}])
                 summary = resp["message"]["content"]
@@ -171,4 +185,5 @@ class ResearchAgent:
                 print(f"[WebSearch] Summary length: {new_length} [Reduction: {old_length // new_length}x]")
                 r["raw_content"] = summary
                 kept.append(r)
+            print("")
         return kept
